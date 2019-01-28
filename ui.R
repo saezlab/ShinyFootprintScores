@@ -8,7 +8,7 @@ ui = function(request) {
       id = "menu", 
       title = div(img(src="logo_saezlab.png", width="25", height="25"),
                   "Resource of footprint scores"),
-      windowTitle = "Resource of signaling activities",
+      windowTitle = "Resource of footprint scores",
       collapsible=T,
       source("sub/01_ui_welcome.R")$value,
       source("sub/02_ui_single_experiment.R")$value,
