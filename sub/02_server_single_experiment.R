@@ -36,6 +36,7 @@ query_input = reactive({
     )
   })
 
+
 output$select_query <- renderUI({
     pickerInput(inputId = "select_id", 
                 label = "Select ID:", 
@@ -59,7 +60,7 @@ output$meta_df = DT::renderDataTable({
                                 lengthMenu = c(2, 5, 15, 20)))
 })
 
-output$progeny_scores_single_experiment = renderPlot({
+output$progeny_scores_single_experiment_volcano = renderPlot({
   if (length(unique(activity_df()$id)) == 1) {
     activity_df() %>%
       filter(class == "pathway") %>%
@@ -85,7 +86,11 @@ output$progeny_scores_single_experiment = renderPlot({
       ) +
       labs(y="Activity (z-score)") +
       scale_color_manual(values = rwth_color(c("magenta", "green")))
-  } else if (length(unique(activity_df()$id)) > 1){
+  }
+  })
+
+output$progeny_scores_single_experiment_heatmap = renderD3heatmap({
+  if (length(unique(activity_df()$id)) > 1) {
     mat = activity_df() %>%
       filter(class == "pathway") %>%
       select(id,feature, activity) %>%
@@ -100,7 +105,7 @@ output$progeny_scores_single_experiment = renderPlot({
   }
 })
 
-output$dorothea_scores_single_experiment = renderPlot({
+output$dorothea_scores_single_experiment_volcano = renderPlot({
   if (length(unique(activity_df()$id)) == 1) {
     activity_df() %>%
       filter(class == "tf") %>%
@@ -129,7 +134,11 @@ output$dorothea_scores_single_experiment = renderPlot({
       ) +
       labs(y="Activity (z-score)") +
       scale_color_manual(values = rwth_color(c("magenta", "green")))
-  } else if (length(unique(activity_df()$id)) > 1){
+  }
+  }) 
+
+output$dorothea_scores_single_experiment_heatmap = renderD3heatmap({
+    if (length(unique(activity_df()$id)) > 1) {
     mat = activity_df() %>%
       filter(class == "tf") %>%
       select(id,feature, activity) %>%
