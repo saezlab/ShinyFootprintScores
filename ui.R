@@ -7,7 +7,7 @@ ui = function(request) {
     navbarPage(
       id = "menu", 
       title = div(img(src="logo_saezlab.png", width="25", height="25"),
-                  "Resource of signaling activities"),
+                  "Resource of footprint scores"),
       windowTitle = "Resource of signaling activities",
       collapsible=T,
       source("sub/01_ui_welcome.R")$value,
@@ -17,7 +17,7 @@ ui = function(request) {
       # source("sub/05_ui_piano.R")$value,
       # source("sub/06_ui_dorothea.R")$value,
       # source("sub/07_ui_dvd.R")$value,
-      footer = column(12, align="center", "Resource of signaling activities (2019)")
+      footer = column(12, align="center", "Resource of footprint scores (2019)")
       ) # close navbarPage
     ) # close fluidPage
 }
