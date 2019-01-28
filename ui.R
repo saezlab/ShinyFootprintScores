@@ -3,7 +3,7 @@ source("sub/global.R")
 ui = function(request) {
   fluidPage(
     useShinyjs(),
-    #tags$head(includeScript("google-analytics.js")),
+    tags$head(includeScript("google-analytics.js")),
     navbarPage(
       id = "menu", 
       title = div(img(src="logo_saezlab.png", width="25", height="25"),
