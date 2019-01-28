@@ -49,6 +49,5 @@ rsconnect/
 # other directories
 sub/debugging.R
 sub/tidy_data.R
-data/disease/
-data/gene_drug/
+data_raw/
 .Rproj.user
