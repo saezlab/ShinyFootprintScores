@@ -35,9 +35,11 @@ tabPanel(
     DT::dataTableOutput("meta_df"),
     hr(),
     h5("Pathway activity"),
-    plotOutput("progeny_scores_single_experiment"),
+    plotOutput("progeny_scores_single_experiment_volcano"),
+    d3heatmapOutput("progeny_scores_single_experiment_heatmap"),
     h5("TF activity"),
-    plotOutput("dorothea_scores_single_experiment"),
+    plotOutput("dorothea_scores_single_experiment_volcano"),
+    d3heatmapOutput("dorothea_scores_single_experiment_heatmap"),
     hr(),
     DT::dataTableOutput("scores_df")
   )
