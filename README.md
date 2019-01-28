@@ -1,6 +1,6 @@
 This app is ...
 
-* deployed on <a href="https://saezlab.shinyapps.io/signaling_resource" target="_blank">https://saezlab.shinyapps.io/signaling_resource</a>
+* deployed on <a href="https://saezlab.shinyapps.io/footprint_scores" target="_blank">https://saezlab.shinyapps.io/signaling_resource</a>
 
 * designed to interactively explore a large resource of TF/Pathway activities for perturbation and disease experiments in mice and humans.
 
