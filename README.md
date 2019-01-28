@@ -10,9 +10,9 @@ This app is ...
 
 ---
 
-<i class="fab fa-github"></i> Source code is available on <a href="https://github.com/saezlab/ShinySignalingResource" target="_blank">GitHub</a>.
+<i class="fab fa-github"></i> Source code is available on <a href="https://github.com/saezlab/ShinyFootprintScores" target="_blank">GitHub</a>.
 
-<i class="fas fa-question"></i> Please use <a href="https://github.com/saezlab/ShinySignalingResource/issues" target="_blank">GitHub's issue system</a> to address questions, bugs or feedback. 
+<i class="fas fa-question"></i> Please use <a href="https://github.com/saezlab/ShinyFootprintScores/issues" target="_blank">GitHub's issue system</a> to address questions, bugs or feedback. 
 
 ---
 
