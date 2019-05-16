@@ -27,7 +27,7 @@ tabPanel(
     downloadButton("download_single_experiment", "Download experiment(s)"),
     p(""),
     p(tags$i(`class`="fas fa-exclamation-triangle", `style`="color:red"), 
-      span("Very large file (~120 MB)", style = "color:red")),
+      span("Large file (~120 MB)", style = "color:red")),
     downloadButton("download_entire_resource", "Download entire resource")
 
   ),
