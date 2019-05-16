@@ -14,9 +14,6 @@ ui = function(request) {
       source("sub/02_ui_single_experiment.R")$value,
       source("sub/03_ui_multiple_experiments.R")$value,
       source("sub/04_ui_experiments.R")$value,
-      # source("sub/05_ui_piano.R")$value,
-      # source("sub/06_ui_dorothea.R")$value,
-      # source("sub/07_ui_dvd.R")$value,
       footer = column(12, align="center", "Resource of footprint scores (2019)")
       ) # close navbarPage
     ) # close fluidPage
