@@ -3,10 +3,16 @@ tabPanel(
   icon = icon("line-chart"),
   sidebarPanel(
     h4("Study multiple experiments"),
-    p("Select resource(s) and an organism and explore in which experiments your pathway/TF of interest lies in a given range."),
-    p(tags$i(`class` = "far fa-lightbulb"), tags$em("Example:"), "For which human disease experiments the activity of NFkB is in between 5 and 7?"),
+    p("Select a resource and an organism and explore pathway/TF activities across experiments with similiar objective/experimental design."),
+    p(tags$i(`class` = "far fa-lightbulb"), tags$em("Example:"), "Show me pathway and TF activities of all Hepatitis C studies in human."),
     hr(),
-    checkboxGroupButtons(inputId = "select_resource_multi_expr", 
+    radioGroupButtons(inputId = "select_organism_multi_expr", 
+                      label = "Select organism:", 
+                      choices = c(`<i class="fas fa-shoe-prints"></i> Human` = "human", 
+                                  `<i class="fas fa-paw"></i> Mouse` = "mouse"), 
+                      justified = TRUE,
+                      selected = "human"),
+    radioGroupButtons(inputId = "select_resource_multi_expr", 
                       label = "Select a resource:", 
                       choices = c(`<i class="fas fa-capsules"></i> Drug perturbations` = "single drug perturbation", 
                                   `<i class="fas fa-dna"></i> Gene perturbations` = "single gene perturbation", 
@@ -14,17 +20,31 @@ tabPanel(
                       justified = TRUE,
                       direction = "vertical",
                       selected = "disease signatures"),
-    radioGroupButtons(inputId = "select_organism_multi_expr", 
-                         label = "Select organism:", 
-                         choices = c(`<i class="fas fa-shoe-prints"></i> Human` = "human", 
-                                     `<i class="fas fa-paw"></i> Mouse` = "mouse"), 
-                         justified = TRUE,
-                         selected = "human"),
-    uiOutput("select_feature"),
-    uiOutput("feature_range")
+    uiOutput("select_feature") %>%
+      helper(content = "select_features"),
+    conditionalPanel(
+      condition = "input.select_resource_multi_expr == 'disease signatures'",
+      uiOutput("select_disease_set") %>%
+        helper(content = "disease_sets")
+    )
     
   ),
   mainPanel(
-    DT::dataTableOutput("highest_scores")
+    h4("Metadata"),
+    DT::dataTableOutput("meta") %>% withSpinner(),
+    hr(),
+    h4("Pathway activities"),
+    d3heatmapOutput("pathway_heatmaps") %>%
+      withSpinner() %>%
+      helper(content = "pathway_heatmaps"),
+    hr(),
+    h4("TF activities"),
+    d3heatmapOutput("tf_heatmaps") %>% withSpinner(),
+    hr(),
+    h4("Raw pathway activtiy scores"),
+    DT::dataTableOutput("pathway_table") %>% withSpinner(),
+    hr(),
+    h4("Raw TF activity scores"),
+    DT::dataTableOutput("tf_table") %>% withSpinner()
   )
 )
