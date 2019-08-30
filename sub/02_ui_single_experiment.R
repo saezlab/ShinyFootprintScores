@@ -34,7 +34,6 @@ tabPanel(
       span("File size: ~120 MB", style = "color:red")),
     downloadButton("download_entire_resource", "Download entire resource") %>%
       helper(content = "download_everything")
-
   ),
   mainPanel(
     h4("Metadata"),
