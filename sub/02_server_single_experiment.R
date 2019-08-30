@@ -1,26 +1,26 @@
-selected_query_type = eventReactive(input$select_query_type, {
-  input$select_query_type
-})
-
-selected_id = eventReactive(input$select_id, {
-  input$select_id
-})
-
-selected_conf = eventReactive(input$select_conf, {
-  input$select_conf
-})
-
-selected_top_n = eventReactive(input$select_top_n, {
-  input$select_top_n
-})
+# selected_query_type = eventReactive(input$select_query_type, {
+#   input$select_query_type
+# })
+# 
+# selected_id = eventReactive(input$select_id, {
+#   input$select_id
+# })
+# 
+# selected_conf = eventReactive(input$select_conf, {
+#   input$select_conf
+# })
+# 
+# selected_top_n = eventReactive(input$select_top_n, {
+#   input$select_top_n
+# })
 
 activity_df = reactive({
-  if (!is.null(selected_id())) {
+  if (!is.null(input$select_id)) {
     annotation_df %>%
-      filter(id == selected_id() | accession == selected_id()) %>%
+      filter(id == input$select_id | accession == input$select_id) %>%
       distinct(id, accession) %>%
-      inner_join(activities_df) %>%
-      filter(confidence %in% selected_conf() | is.na(confidence))
+      inner_join(activities_df, by=c("id")) %>%
+      filter(confidence %in% input$select_conf | is.na(confidence))
   }
 })
   
@@ -45,19 +45,20 @@ output$select_query <- renderUI({
 })
 
 output$meta_df = DT::renderDataTable({
-  print(selected_id())
-  annotation_df %>%
-    filter(id == selected_id() | accession == selected_id()) %>%
-    select(-accession, -sample, -sample_link, -group) %>%
-    select_if(~!all(is.na(.))) %>%
-    rename(accession=accession_link) %>%
-    distinct() %>%
-    select(accession, id, resource, organism, everything()) %>%
-    DT::datatable(., escape = F, selection = list(target = "none"),
-                  class = "compact",
-                  option = list(scrollX = TRUE, autoWidth=T,
-                                pageLength = 2,
-                                lengthMenu = c(2, 5, 15, 20)))
+  if (!is.null(input$select_id)) {
+    annotation_df %>%
+      filter(id == input$select_id | accession == input$select_id) %>%
+      select(-accession, -sample, -sample_link, -group) %>%
+      select_if(~!all(is.na(.))) %>%
+      rename(accession=accession_link) %>%
+      distinct() %>%
+      select(accession, id, resource, organism, everything()) %>%
+      DT::datatable(., escape = F, selection = list(target = "none"),
+                    class = "compact",
+                    option = list(scrollX = TRUE, autoWidth=T,
+                                  pageLength = 2,
+                                  lengthMenu = c(2, 5, 15, 20)))
+  }
 })
 
 output$progeny_scores_single_experiment_volcano = renderPlot({
@@ -111,7 +112,7 @@ output$dorothea_scores_single_experiment_volcano = renderPlot({
       filter(class == "tf") %>%
       mutate(effect = factor(sign(activity))) %>%
       group_by(effect) %>%
-      top_n(selected_top_n(), abs(activity)) %>%
+      top_n(input$select_top_n, abs(activity)) %>%
       ungroup() %>%
       ggplot(aes(x=fct_reorder(feature, activity), y=activity, color=effect)) +
       geom_segment(aes(x=fct_reorder(feature, activity), 
@@ -138,7 +139,7 @@ output$dorothea_scores_single_experiment_volcano = renderPlot({
   }) 
 
 output$dorothea_scores_single_experiment_heatmap = renderD3heatmap({
-    if (length(unique(activity_df()$id)) > 1) {
+  if (length(unique(activity_df()$id)) > 1) {
     mat = activity_df() %>%
       filter(class == "tf") %>%
       select(id,feature, activity) %>%
@@ -154,20 +155,26 @@ output$dorothea_scores_single_experiment_heatmap = renderD3heatmap({
 })
 
 output$scores_df = DT::renderDataTable({
-  activity_df() %>%
-    select(-resource) %>%
-    mutate(feature = as_factor(feature),
-           class = as_factor(class),
-           confidence = as_factor(confidence)) %>%
-    DT::datatable(., escape = F, selection = list(target = "none"),
-                  filter = "top",
-                  option = list(scrollX = TRUE, autoWidth=T)) %>%
-    formatSignif(which(map_lgl(select(activity_df(), -resource), is.numeric)))
+  if (!is.null(input$select_id)) {
+    activity_df() %>%
+      select(-resource) %>%
+      mutate(feature = as_factor(feature),
+             class = as_factor(class),
+             confidence = as_factor(confidence)) %>%
+      DT::datatable(., escape = F, selection = list(target = "none"),
+                    filter = "top",
+                    extensions = "Buttons",
+                    option = list(scrollX = TRUE, 
+                                  autoWidth=T,
+                                  dom = "Bfrtip",
+                                  buttons = c("copy", "csv", "excel"))) %>%
+      formatSignif(which(map_lgl(select(activity_df(), -resource), is.numeric)))
+  }
 })
 
 output$download_single_experiment = downloadHandler(
   filename = function() {
-    paste0(selected_id(), "_pathway_tf_scores.csv")
+    paste0(input$select_id, "_pathway_tf_scores.csv")
   },
   content = function(file) {
     activity_df() %>%
