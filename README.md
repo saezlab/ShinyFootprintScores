@@ -4,7 +4,7 @@ This app is ...
 
 * designed to interactively explore a large resource of TF/Pathway activities for perturbation and disease experiments in mice and humans.
 
-* developed and maintained by Christian Holland (<a href="mailto:christian.holland@bioquant.uni-heidelberg.de" target="_blank"><i class="glyphicon glyphicon-envelope"></i></a>) at the <a href="http://saezlab.org" target="_blank">Saezlab</a>, Institute for Computational Biomedicine, University of Heidelberg.
+* developed and maintained by Christian Holland (christian.holland@bioquant.uni-heidelberg.de) at the <a href="http://saezlab.org" target="_blank">Saezlab</a>, Institute for Computational Biomedicine, University of Heidelberg.
 
 * developed using <a href="https://shiny.rstudio.com" target="_blank">Shiny</a>.
 
