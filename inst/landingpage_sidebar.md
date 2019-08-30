@@ -1,6 +1,6 @@
 <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
 
-This app is ...
+#### This app is ...
 
 <i class="far fa-comment"></i> designed to interactively explore a large resource of TF/Pathway activities for perturbation and disease experiments in mice and humans.
 
