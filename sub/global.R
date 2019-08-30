@@ -9,10 +9,14 @@ library(scales)
 library(DT)
 library(shinyjs)
 library(d3heatmap)
+library(shinyhelper)
+library(shinycssloaders)
+library(shinyalert)
 
 # load data
 annotation_df = readRDS("data/annotation_df.rds")
 activities_df = readRDS("data/activities_df.rds")
+diseasesets_df = readRDS("data/disease_gene_sets.rds")
 
 # load color palette
 rwth_colors_df = get(load("data/misc/rwth_colors.rda"))

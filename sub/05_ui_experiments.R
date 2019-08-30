@@ -28,9 +28,11 @@ tabPanel(
                       choices = c("Yes", "No"),
                       selected = "No",
                       checkIcon = list(yes = icon("ok", lib = "glyphicon"), 
-                                       no = icon("remove", lib = "glyphicon"))),
+                                       no = icon("remove", lib = "glyphicon"))) %>%
+      helper(content = "showing_sample_ids"),
     hr(),
-    downloadButton("download_meta", "Download metadata")
+    downloadButton("download_meta", "Download all metadata") %>%
+      helper(content = "download_meta")
   ),
   mainPanel(
     DT::dataTableOutput("anno_df")

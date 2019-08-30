@@ -2,14 +2,6 @@ selected_resource = eventReactive(input$select_resource, {
   input$select_resource
 })
 
-# selected_organism = eventReactive(input$select_organism, {
-#   print(input$select_organism)
-#   if (is.null(input$select_organism)) {
-#     c("human", "mouse")
-#   } else {
-#     input$select_organism
-#   }
-# })
 
 selected_organism = eventReactive(input$select_organism, {
     input$select_organism
@@ -20,16 +12,16 @@ included_sample_ids = eventReactive(input$include_sample_ids, {
 })
 
 output$anno_df = DT::renderDataTable({
-  if (!is.null(selected_resource()) & !is.null(selected_organism())) {
+  if (!is.null(input$select_resource) & !is.null(input$select_organism)) {
     annotation_df_tmp = annotation_df %>%
-      filter(resource %in% selected_resource() & organism %in% selected_organism()) %>%
+      filter(resource %in% input$select_resource & organism %in% input$select_organism) %>%
       arrange(id, group) %>%
       select(-resource) %>%
       select(-accession, -sample) %>%
       select_if(~!all(is.na(.))) %>%
       rename(sample=sample_link, accession=accession_link)
       
-    if (included_sample_ids() == "No") {
+    if (input$include_sample_ids == "No") {
       annotation_df_tmp %>%
         select(-sample, -group) %>%
         distinct() %>%
@@ -49,7 +41,7 @@ output$download_meta = downloadHandler(
   },
   content = function(file) {
     annotation_df %>%
-      filter(resource %in% selected_resource() & organism %in% selected_organism()) %>%
+      filter(resource %in% input$select_resource & organism %in% input$select_organism) %>%
       select_if(~!all(is.na(.))) %>%
       select(-sample_link, -accession_link) %>%
       select(-group, -sample) %>%
