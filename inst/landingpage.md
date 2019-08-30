@@ -2,7 +2,7 @@
 
 ***
 #### About
-This app allows interactive exploration of transcription factor (TF) and pathway activites of perturbation and disease experiments in mice and humans. As part of the publication [Transfer of regulatory knowledge from human to mouse for functional genomic analysis](https://www.biorxiv.org/content/10.1101/532739v1) we analyzed 454 single drug perturbation, 1451 single gene perturbation and 469 disease experiments
+This app allows interactive exploration of transcription factor (TF) and pathway activites of perturbation and disease experiments in mice and humans. As part of the publication <a href="https://www.biorxiv.org/content/10.1101/532739v1" target="_blank">Transfer of regulatory knowledge from human to mouse for functional genomic analysis</a> we analyzed 454 single drug perturbation, 1451 single gene perturbation and 469 disease experiments
 
 * We used the tool <a href="https://saezlab.github.io/progeny/" target="_blank">PROGENy</a> to infer the activity of 14 signaling pathways from gene expression data. PROGENy is based on consensus transcriptomic perturbation signatures we refer to as footprints of signaling pathways on gene expression.
 
