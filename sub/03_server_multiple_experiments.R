@@ -27,8 +27,6 @@ observeEvent(input$select_resource_multi_expr, {
 
 # 
 feature_input = reactive({
-  print(input$select_resource_multi_expr)
-  print(input$select_organism_multi_expr)
   switch(
     input$select_organism_multi_expr,
     "human" = annotation_df %>%
@@ -118,7 +116,6 @@ observeEvent(c(input$select_feature_picker, input$select_disease_set_picker), {
     distinct(id, organism, disease, target, drug, perturbation, info, 
            accession = accession_link)
   if (nrow(m) == 1) {
-    # shinyalert("Oops!", "For your query only one experiment exists (see metadata table above). Hence it is not possible to display heatmaps of pathway and transcription factor activities. Still the activity scores can be explored by either checking the activity scores in the tables below or use the tab 'Query single experiment' with the CREEDS ID provided in the metadata table.", type = "warning")
     info_text = str_c("For your query only one experiment exists (", 
                       creeds_ids_of_interest()$id, "). Check out the tab 'Query single experiment' to visualize pathway/TF activities of single experiments.")
     showNotification(info_text, type="warning", duration = 10)
